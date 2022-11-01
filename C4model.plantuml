@@ -1,0 +1,8 @@
+@startuml Seguro Fiança
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Parceiro", "É a imobiliária que traz gera negócios ")
+Container(sys, "Sigafy","Web Aplication", "A plataforma onde as imobiliárias dão andamento nos processos")
+Container(api, "Seguro Fiança","API", "A plataforma onde as imobiliárias dão andamento nos processos")
+@enduml
