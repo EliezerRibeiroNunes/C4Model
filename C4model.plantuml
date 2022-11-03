@@ -2,7 +2,29 @@
 
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Person(user, "Parceiro", "É a imobiliária que traz gera negócios ")
-Container(sys, "Sigafy","Web Aplication", "A plataforma onde as imobiliárias dão andamento nos processos")
-Container(api, "Seguro Fiança","API", "A plataforma onde as imobiliárias dão andamento nos processos")
+Person(user, "Usuário", "Pode ser Parceiro ou colaborador")
+System_Ext(seguradora, "Seguradora", "Empresa que provê os seguros e a cobertura dos mesmos")
+
+System_Boundary(c1, "Aplicação Sigafy") {
+    Container(sys, "Web Aplication", "A plataforma onde as imobiliárias dão andamento nos processos")
+
+    System_Boundary(c2, "Containers") {
+        Container(api,"Seguro Fiança","API")
+        Container(db, "PostgreSQL" ,"Armaza dados, logs, etc")
+
+        System_Boundary(c3, "Components") {
+            Container(apolice, "Apólice", "Documento", "documento emitido por uma seguradora que faz a formalização da aceitação de cobertura de sinistros ou determinados eventos")
+            Container(aprovacao, "Aprovação")
+            Container(processo, "Processo")
+            Container(sinistro, "Sinistro")
+        }
+    }
+}
+
+Rel_R(user, sys, "Uses", "Http")
+Rel(sys, api, " Usa Endpoints","http")
+Rel(api, apolice, " Emite")
+Rel(seguradora, api, "Fornece")
+Rel_R(api, db, "Leitura/Gravação")
+
 @enduml
