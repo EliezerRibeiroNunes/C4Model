@@ -10,7 +10,9 @@ System_Boundary(c1, "Aplicação Sigafy") {
 
     System_Boundary(c2, "Containers") {
         Container(api,"Seguro Fiança","API")
-        Container(db, "PostgreSQL" ,"Armaza dados, logs, etc")
+        Container(incendio,"Seguro Incêndio")
+        Container(titulo,"Título")
+        Container(db, "PostgreSQL" ,"Armazena dados, logs, etc")
 
         System_Boundary(c3, "Components") {
             Container(apolice, "Apólice", "Documento", "documento emitido por uma seguradora que faz a formalização da aceitação de cobertura de sinistros ou determinados eventos")
@@ -20,11 +22,9 @@ System_Boundary(c1, "Aplicação Sigafy") {
         }
     }
 }
-
 Rel_R(user, sys, "Uses", "Http")
 Rel(sys, api, " Usa Endpoints","http")
 Rel(api, apolice, " Emite")
 Rel(seguradora, api, "Fornece")
 Rel_R(api, db, "Leitura/Gravação")
-
 @enduml
